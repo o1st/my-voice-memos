@@ -1,0 +1,11 @@
+<svg width="200" height="60" viewBox="0 0 200 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+
+  <rect x="10" y="10" width="30" height="40" rx="4" ry="4" fill="#F4E869" stroke="#333" stroke-width="2"/>
+  <line x1="15" y1="20" x2="35" y2="20" stroke="#333" stroke-width="2"/>
+  <line x1="15" y1="28" x2="35" y2="28" stroke="#333" stroke-width="2"/>
+  <line x1="15" y1="36" x2="28" y2="36" stroke="#333" stroke-width="2"/>
+
+  <text x="50" y="38" font-family="Arial, sans-serif" font-size="28" fill="#333" font-weight="bold">
+    My <tspan fill="#F4E869">memos</tspan>
+  </text>
+</svg>
