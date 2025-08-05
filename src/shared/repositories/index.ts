@@ -1,1 +1,1 @@
-export * from './LocalStorageRepository';
+export * from "./LocalStorageRepository";

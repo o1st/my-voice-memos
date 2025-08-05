@@ -1,1 +1,1 @@
-export { memosService } from './memosService';
+export { memosService } from "./memosService";

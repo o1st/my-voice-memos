@@ -1,6 +1,6 @@
-import type { BaseEntity } from '@shared/types';
+import type { BaseEntity } from "@shared/types";
 
 export interface Memo extends BaseEntity {
-  title: string;
-  description: string;
+	title: string;
+	description: string;
 }

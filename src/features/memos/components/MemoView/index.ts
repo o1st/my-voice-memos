@@ -1,1 +1,1 @@
-export * from './MemoView';
+export * from "./MemoView";

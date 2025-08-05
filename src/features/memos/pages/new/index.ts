@@ -1,1 +1,1 @@
-export { default } from './NewMemoPage';
+export { default } from "./NewMemoPage";

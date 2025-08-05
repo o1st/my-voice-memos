@@ -1,135 +1,143 @@
-import { useState, useRef, useCallback } from 'react';
+import { useCallback, useRef, useState } from "react";
 
 interface UseAudioRecorderWithRecognitionProps {
-  lang?: string;
-  onTranscription?: (text: string) => void
+	lang?: string;
+	onTranscription?: (text: string) => void;
 }
 
-export function useAudioRecorderWithRecognition({ lang = 'en-US', onTranscription }: UseAudioRecorderWithRecognitionProps) {
-  const [isRecording, setIsRecording] = useState(false);
-  const [isProcessing, setIsProcessing] = useState(false);
-  const [transcript, setTranscript] = useState('');
-  const [interimTranscript, setInterimTranscript] = useState('');
-  const [audioBlob, setAudioBlob] = useState<Blob | null>(null);
+export function useAudioRecorderWithRecognition({
+	lang = "en-US",
+	onTranscription,
+}: UseAudioRecorderWithRecognitionProps) {
+	const [isRecording, setIsRecording] = useState(false);
+	const [isProcessing, setIsProcessing] = useState(false);
+	const [transcript, setTranscript] = useState("");
+	const [interimTranscript, setInterimTranscript] = useState("");
+	const [audioBlob, setAudioBlob] = useState<Blob | null>(null);
 
-  const mediaRecorderRef = useRef<MediaRecorder | null>(null);
-  const audioChunksRef = useRef<Blob[]>([]);
-  const recognitionRef = useRef<any>(null);
-  const transcriptRef = useRef('');
-  const interimTranscriptRef = useRef('');
+	const mediaRecorderRef = useRef<MediaRecorder | null>(null);
+	const audioChunksRef = useRef<Blob[]>([]);
+	const recognitionRef = useRef<any>(null);
+	const transcriptRef = useRef("");
+	const interimTranscriptRef = useRef("");
 
-  const startRecording = useCallback(async () => {
-    try {
-      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-      const mediaRecorder = new MediaRecorder(stream);
+	const startRecording = useCallback(async () => {
+		try {
+			const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+			const mediaRecorder = new MediaRecorder(stream);
 
-      mediaRecorderRef.current = mediaRecorder;
-      audioChunksRef.current = [];
+			mediaRecorderRef.current = mediaRecorder;
+			audioChunksRef.current = [];
 
-      setTranscript('');
-      setInterimTranscript('');
+			setTranscript("");
+			setInterimTranscript("");
 
-      transcriptRef.current = '';
-      interimTranscriptRef.current = '';
-      
-      setAudioBlob(null);
+			transcriptRef.current = "";
+			interimTranscriptRef.current = "";
 
-      const SpeechRecognition =
-        (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
+			setAudioBlob(null);
 
-      if (SpeechRecognition) {
-        const recognition = new SpeechRecognition();
+			const SpeechRecognition =
+				(window as any).SpeechRecognition ||
+				(window as any).webkitSpeechRecognition;
 
-        recognition.lang = lang;
-        recognition.interimResults = true;
-        recognition.continuous = true;
-        recognitionRef.current = recognition;
+			if (SpeechRecognition) {
+				const recognition = new SpeechRecognition();
 
-        recognition.onresult = (event: any) => {
-          let finalTranscript = '';
-          let interimTranscript = '';
+				recognition.lang = lang;
+				recognition.interimResults = true;
+				recognition.continuous = true;
+				recognitionRef.current = recognition;
 
-          for (let i = event.resultIndex; i < event.results.length; ++i) {
-            if (event.results[i].isFinal) {
-              finalTranscript += event.results[i][0].transcript;
-            } else {
-              interimTranscript += event.results[i][0].transcript;
-            }
-          }
+				recognition.onresult = (event: any) => {
+					let finalTranscript = "";
+					let interimTranscript = "";
 
-          if (finalTranscript) {
-            transcriptRef.current += finalTranscript;
-            setTranscript(transcriptRef.current);
+					for (let i = event.resultIndex; i < event.results.length; ++i) {
+						if (event.results[i].isFinal) {
+							finalTranscript += event.results[i][0].transcript;
+						} else {
+							interimTranscript += event.results[i][0].transcript;
+						}
+					}
 
-            interimTranscriptRef.current = '';
-            setInterimTranscript('');
-          } else {
-            interimTranscriptRef.current = interimTranscript;
-            setInterimTranscript(interimTranscript);
-          }
-        };
+					if (finalTranscript) {
+						transcriptRef.current += finalTranscript;
+						setTranscript(transcriptRef.current);
 
-        recognition.onerror = (event: any) => {
-          console.error('SpeechRecognition error:', event.error);
-        };
+						interimTranscriptRef.current = "";
+						setInterimTranscript("");
+					} else {
+						interimTranscriptRef.current = interimTranscript;
+						setInterimTranscript(interimTranscript);
+					}
+				};
 
-        recognition.onend = () => {
-          setIsProcessing(true);
+				recognition.onerror = (event: any) => {
+					console.error("SpeechRecognition error:", event.error);
+				};
 
-          setTimeout(() => {
-            setIsProcessing(false);
-            if (audioChunksRef.current.length > 0) {
-              const audioBlob = new Blob(audioChunksRef.current, { type: 'audio/wav' });
-              setAudioBlob(audioBlob);
-              if (onTranscription) {
-                onTranscription(transcriptRef.current);
-              }
-            }
-          }, 300);
-        };
+				recognition.onend = () => {
+					setIsProcessing(true);
 
-        recognition.start();
-      }
+					setTimeout(() => {
+						setIsProcessing(false);
+						if (audioChunksRef.current.length > 0) {
+							const audioBlob = new Blob(audioChunksRef.current, {
+								type: "audio/wav",
+							});
+							setAudioBlob(audioBlob);
+							if (onTranscription) {
+								onTranscription(transcriptRef.current);
+							}
+						}
+					}, 300);
+				};
 
-      mediaRecorder.ondataavailable = (event) => {
-        if (event.data.size > 0) {
-          audioChunksRef.current.push(event.data);
-        }
-      };
+				recognition.start();
+			}
 
-      mediaRecorder.onstop = () => {
-        if (recognitionRef.current) {
-          recognitionRef.current.stop();
-        }
-      };
+			mediaRecorder.ondataavailable = (event) => {
+				if (event.data.size > 0) {
+					audioChunksRef.current.push(event.data);
+				}
+			};
 
-      mediaRecorder.start();
-      setIsRecording(true);
-    } catch (error) {
-      console.error('Audio recording error:', error);
-      alert('Could not access microphone');
-    }
-  }, [lang, onTranscription]);
+			mediaRecorder.onstop = () => {
+				if (recognitionRef.current) {
+					recognitionRef.current.stop();
+				}
+			};
 
-  const stopRecording = useCallback(() => {
-    if (mediaRecorderRef.current && isRecording) {
-      mediaRecorderRef.current.stop();
-      mediaRecorderRef.current.stream.getTracks().forEach(track => track.stop());
-      setIsRecording(false);
-    }
+			mediaRecorder.start();
+			setIsRecording(true);
+		} catch (error) {
+			console.error("Audio recording error:", error);
+			alert("Could not access microphone");
+		}
+	}, [lang, onTranscription]);
 
-    if (recognitionRef.current) {
-      recognitionRef.current.stop();
-    }
-  }, [isRecording]);
+	const stopRecording = useCallback(() => {
+		if (mediaRecorderRef.current && isRecording) {
+			mediaRecorderRef.current.stop();
+			mediaRecorderRef.current.stream
+				.getTracks()
+				.forEach((track) => track.stop());
+			setIsRecording(false);
+		}
 
-  return {
-    isRecording,
-    isProcessing,
-    transcript: transcript + interimTranscript,
-    finalTranscript: transcript,
-    audioBlob,
-    startRecording,
-    stopRecording,
-  };
+		if (recognitionRef.current) {
+			recognitionRef.current.stop();
+		}
+	}, [isRecording]);
+
+	return {
+		isRecording,
+		isProcessing,
+		transcript: transcript + interimTranscript,
+		finalTranscript: transcript,
+		audioBlob,
+		startRecording,
+		stopRecording,
+	};
 }

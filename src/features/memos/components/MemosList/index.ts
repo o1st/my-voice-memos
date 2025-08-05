@@ -1,1 +1,1 @@
-export * from './MemosList';
+export * from "./MemosList";

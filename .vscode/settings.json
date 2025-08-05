@@ -1,0 +1,25 @@
+{
+	"editor.formatOnSave": true,
+	"editor.defaultFormatter": "biome.biome",
+	"biome.enable": true,
+	"[typescript]": {
+		"editor.defaultFormatter": "biome.biome",
+		"editor.formatOnSave": true
+	},
+	"[typescriptreact]": {
+		"editor.defaultFormatter": "biome.biome",
+		"editor.formatOnSave": true
+	},
+	"[javascript]": {
+		"editor.defaultFormatter": "biome.biome",
+		"editor.formatOnSave": true
+	},
+	"[javascriptreact]": {
+		"editor.defaultFormatter": "biome.biome",
+		"editor.formatOnSave": true
+	},
+	"editor.codeActionsOnSave": {
+		"quickfix.biome": "explicit",
+		"source.organizeImports.biome": "explicit"
+	}
+}

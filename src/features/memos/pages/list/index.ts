@@ -1,1 +1,1 @@
-export { default } from './MemosListPage';
+export { default } from "./MemosListPage";
