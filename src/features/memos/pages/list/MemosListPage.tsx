@@ -1,8 +1,8 @@
 import React from "react";
 import { MemosList } from "../../components/MemosList";
 import { useMemos } from "../../hooks";
-import { useNavigation } from "../../../../hooks/useNavigation";
-import { DataStateWrapper } from "../../../../components/DataStateWrapper/DataStateWrapper";
+import { useNavigation } from "@hooks/useNavigation";
+import { DataStateWrapper } from "@components/DataStateWrapper/DataStateWrapper";
 
 const MemosListPage: React.FC = () => {
   const { memos, loading, error } = useMemos();

@@ -2,8 +2,8 @@ import React, { useCallback, useMemo } from "react";
 import { Logo } from "../Logo/Logo";
 import { Link } from "react-router-dom";
 import { Button } from "../Button/Button";
-import { useNavigation } from "../../hooks/useNavigation";
-import { buildUrl } from "../../features/memos";
+import { useNavigation } from "@hooks/useNavigation";
+import { buildUrl } from "@features/memos";
 
 export const Header: React.FC = () => {
   const navigation = useNavigation();

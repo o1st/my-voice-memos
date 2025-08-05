@@ -1,9 +1,9 @@
 import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { MemoForm } from "../../components/MemoForm/MemoForm";
-import { useNavigation } from "../../../../hooks/useNavigation";
+import { useNavigation } from "@hooks/useNavigation";
 import { useMemo } from "../../hooks";
-import { DataStateWrapper } from "../../../../components/DataStateWrapper/DataStateWrapper";
+import { DataStateWrapper } from "@components/DataStateWrapper/DataStateWrapper";
 
 const MemoEditPage: React.FC = () => {
   const { id } = useParams();

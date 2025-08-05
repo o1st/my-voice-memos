@@ -1,5 +1,5 @@
 import React, { memo } from "react";
-import { Button } from "../../../../components/Button/Button";
+import { Button } from "@components/Button/Button";
 import { ArrowLeft, Edit2, Trash2 } from "lucide-react";
 import type { Memo } from "../../types";
 

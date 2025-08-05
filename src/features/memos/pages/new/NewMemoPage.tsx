@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { MemoForm } from "../../components/MemoForm/MemoForm";
-import { useNavigation } from "../../../../hooks/useNavigation";
+import { useNavigation } from "@hooks/useNavigation";
 import { memosService } from "../../services/memosService";
 
 const NewMemoPage: React.FC = () => {

@@ -1,7 +1,7 @@
 import React, { Component, type ErrorInfo, type ReactNode } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "../Button/Button";
-import { buildUrl } from "../../features/memos";
+import { buildUrl } from "@features/memos";
 
 interface Props {
   children: ReactNode;

@@ -1,7 +1,7 @@
 import type { RouteObject } from "react-router-dom";
 import { lazy, Suspense } from "react";
 import { ROUTES } from "./routes-config";
-import { Loader } from "../../components/Loader/Loader";
+import { Loader } from "@components/Loader/Loader";
 
 const MemosListPage = lazy(() => import("./pages/list"));
 const NewMemoPage = lazy(() => import("./pages/new"));

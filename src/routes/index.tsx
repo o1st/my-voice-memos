@@ -1,12 +1,12 @@
 import type { RouteObject } from "react-router-dom";
-import { Layout } from "../components/Layout/Layout";
-import { routes as memosRoutes } from "../features/memos";
+import { Layout } from "@components/Layout/Layout";
+import { routes as memosRoutes } from "@features/memos";
 import { Outlet, Navigate } from "react-router-dom";
 import { lazy, Suspense } from "react";
-import { Loader } from "../components/Loader/Loader";
+import { Loader } from "@components/Loader/Loader";
 
 const NotFoundPage = lazy(
-  () => import("../components/NotFoundPage/NotFoundPage")
+  () => import("@components/NotFoundPage/NotFoundPage")
 );
 
 export const routes: RouteObject[] = [

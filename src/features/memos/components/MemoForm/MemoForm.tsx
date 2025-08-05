@@ -3,10 +3,10 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useNavigate } from "react-router-dom";
-import { Input } from "../../../../components/Input/Input";
-import { Textarea } from "../../../../components/Textarea/Textarea";
-import { AudioRecorder } from "../../../../components/AudioRecorder/AudioRecorder";
-import { Button } from "../../../../components/Button/Button";
+import { Input } from "@components/Input/Input";
+import { Textarea } from "@components/Textarea/Textarea";
+import { AudioRecorder } from "@components/AudioRecorder/AudioRecorder";
+import { Button } from "@components/Button/Button";
 import { memoSchema } from "./schema";
 
 type MemoFormData = z.infer<typeof memoSchema> & {

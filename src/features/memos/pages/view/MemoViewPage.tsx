@@ -1,9 +1,9 @@
 import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { MemoView } from "../../components/MemoView/MemoView";
-import { useNavigation } from "../../../../hooks/useNavigation";
+import { useNavigation } from "@hooks/useNavigation";
 import { useMemo } from "../../hooks";
-import { DataStateWrapper } from "../../../../components/DataStateWrapper/DataStateWrapper";
+import { DataStateWrapper } from "@components/DataStateWrapper/DataStateWrapper";
 
 const MemoViewPage: React.FC = () => {
   const { id } = useParams();

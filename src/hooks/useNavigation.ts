@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { useCallback } from "react";
-import { buildUrl } from "../features/memos";
+import { buildUrl } from "@features/memos";
 
 export const useNavigation = () => {
   const navigate = useNavigate();

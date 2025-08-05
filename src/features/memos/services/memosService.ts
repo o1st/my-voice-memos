@@ -1,6 +1,6 @@
 
-import type { Repository, ServiceResult } from '../../../shared/types';
-import { LocalStorageRepository } from '../../../shared/repositories';
+import type { Repository, ServiceResult } from '@shared/types';
+import { LocalStorageRepository } from '@shared/repositories';
 import type { Memo } from '../types';
 
 export class MemosService {
