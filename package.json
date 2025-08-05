@@ -9,8 +9,8 @@
 	"scripts": {
 		"dev": "vite",
 		"build": "tsc -b && vite build",
-		"lint": "biome check . && tsc --noEmit",
-		"lint:biome": "biome check .",
+		"lint": "rm -rf dist && biome check . && tsc --noEmit",
+		"lint:biome": "rm -rf dist && biome check .",
 		"lint:types": "tsc --noEmit",
 		"format": "biome format . --write",
 		"format:check": "biome format .",

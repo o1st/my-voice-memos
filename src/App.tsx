@@ -10,7 +10,7 @@ function AppRoutes() {
 
 function App() {
 	const basename = import.meta.env.PROD ? "/my-voice-memos" : "/";
-	
+
 	return (
 		<BrowserRouter basename={basename}>
 			<ErrorBoundary>
