@@ -5,6 +5,8 @@ import { Loader } from "../../components/Loader/Loader";
 
 const MemosListPage = lazy(() => import("./pages/list"));
 const NewMemoPage = lazy(() => import("./pages/new"));
+const MemoViewPage = lazy(() => import("./pages/view"));
+const MemoEditPage = lazy(() => import("./pages/edit"));
 
 export const routes: RouteObject[] = [
   {
@@ -20,6 +22,22 @@ export const routes: RouteObject[] = [
     element: (
       <Suspense fallback={<Loader />}>
         <NewMemoPage />
+      </Suspense>
+    ),
+  },
+  {
+    path: ROUTES.VIEW,
+    element: (
+      <Suspense fallback={<Loader />}>
+        <MemoViewPage />
+      </Suspense>
+    ),
+  },
+  {
+    path: ROUTES.EDIT,
+    element: (
+      <Suspense fallback={<Loader />}>
+        <MemoEditPage />
       </Suspense>
     ),
   },

@@ -1,6 +1,7 @@
 export interface Memo {
   id: string;
-  text: string;
+  title: string;
+  description: string;
   createdAt: number;
   updatedAt?: number;
 }

@@ -1,2 +1,3 @@
 export * from './MemosList';
-export * from './NewMemo';
+export * from './MemoView';
+export * from './MemoForm';

@@ -1,6 +1,7 @@
 import { BrowserRouter, useRoutes } from "react-router-dom";
 import { routes } from "./routes";
 import { Suspense } from "react";
+import { ErrorBoundary } from "./components/ErrorBoundary/ErrorBoundary";
 
 function AppRoutes() {
   const element = useRoutes(routes);
@@ -10,7 +11,9 @@ function AppRoutes() {
 function App() {
   return (
     <BrowserRouter>
-      <AppRoutes />
+      <ErrorBoundary>
+        <AppRoutes />
+      </ErrorBoundary>
     </BrowserRouter>
   );
 }
