@@ -1,5 +1,7 @@
 import React, { Component, type ErrorInfo, type ReactNode } from "react";
 import { useNavigate } from "react-router-dom";
+import { Button } from "../Button/Button";
+import { buildUrl } from "../../features/memos";
 
 interface Props {
   children: ReactNode;
@@ -27,6 +29,11 @@ class ErrorBoundaryClass extends Component<
     console.error("ErrorBoundary caught an error:", error, errorInfo);
   }
 
+  handleGoHome = () => {
+    this.setState({ hasError: false });
+    this.props.navigate(buildUrl.list());
+  };
+
   render() {
     if (this.state.hasError) {
       return (
@@ -38,15 +45,7 @@ class ErrorBoundaryClass extends Component<
             <p className="text-gray-600 mb-8">
               An unexpected error occurred. Please try refreshing the page.
             </p>
-            <button
-              onClick={() => {
-                this.setState({ hasError: false });
-                this.props.navigate("/memos");
-              }}
-              className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
-            >
-              Back to memos
-            </button>
+            <Button onClick={this.handleGoHome}>Back to memos</Button>
           </div>
         </div>
       );

@@ -1,16 +1,32 @@
-import React from "react";
+import React, { useState } from "react";
 import { MemoForm } from "../../components/MemoForm/MemoForm";
+import { useNavigation } from "../../../../hooks/useNavigation";
+import { memosService } from "../../services/memosService";
 
 const NewMemoPage: React.FC = () => {
-  const handleCreate = (data: any) => {
-    const newMemo = {
-      id: Date.now().toString(),
-      title: data.title.trim(),
-      description: data.description.trim(),
-      createdAt: Date.now(),
-    };
-    console.log("New memo created:", newMemo);
-    alert("Memo created successfully!");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const navigation = useNavigation();
+
+  const handleCreate = async (data: any) => {
+    setIsSubmitting(true);
+
+    try {
+      const result = await memosService.createMemo({
+        title: data.title.trim(),
+        description: data.description.trim(),
+      });
+
+      if (result.success && result.data) {
+        navigation.goToView(result.data.id);
+      } else {
+        alert(`Error creating memo: ${result.error}`);
+      }
+    } catch (error) {
+      alert("An unexpected error occurred while creating memo");
+      console.error("Error creating memo:", error);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -20,7 +36,7 @@ const NewMemoPage: React.FC = () => {
         <p className="text-gray-600 mb-4">
           You can use keyboard or speech input to create a new memo.
         </p>
-        <MemoForm onSubmit={handleCreate} />
+        <MemoForm onSubmit={handleCreate} isReadOnly={isSubmitting} />
       </div>
     </div>
   );

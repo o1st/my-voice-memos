@@ -19,11 +19,7 @@ export const Header: React.FC = () => {
       <div className="flex items-center justify-between">
         <Link
           to={memoListUrl}
-          style={{
-            display: "flex",
-            alignItems: "center",
-            textDecoration: "none",
-          }}
+          className="flex items-center no-underline"
         >
           <Logo />
         </Link>

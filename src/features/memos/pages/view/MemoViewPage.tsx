@@ -2,20 +2,13 @@ import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { MemoView } from "../../components/MemoView/MemoView";
 import { useNavigation } from "../../../../hooks/useNavigation";
-
-const mockMemo = {
-  id: "1",
-  title: "Example memo",
-  description: "This is an example memo description.",
-  createdAt: Date.now(),
-};
+import { useMemo } from "../../hooks";
+import { DataStateWrapper } from "../../../../components/DataStateWrapper/DataStateWrapper";
 
 const MemoViewPage: React.FC = () => {
   const { id } = useParams();
   const navigation = useNavigation();
-
-  // TODO: replace
-  const memo = mockMemo;
+  const { memo, loading, error, deleteMemo } = useMemo(id);
 
   useEffect(() => {
     if (!id) {
@@ -24,13 +17,18 @@ const MemoViewPage: React.FC = () => {
   }, [id, navigation]);
 
   const handleEdit = () => {
-    navigation.goToEdit(memo.id);
+    if (memo) {
+      navigation.goToEdit(memo.id);
+    }
   };
 
-  const handleDelete = () => {
-    // TODO: replace
-    alert("Memo deleted!");
-    navigation.goToList();
+  const handleDelete = async () => {
+    if (window.confirm('Are you sure you want to delete this memo?')) {
+      const success = await deleteMemo();
+      if (success) {
+        navigation.goToList();
+      }
+    }
   };
 
   const handleBack = () => {
@@ -40,13 +38,26 @@ const MemoViewPage: React.FC = () => {
   return (
     <div className="w-full max-w-2xl mx-auto box-border">
       <div className="px-4">
-        <h1 className="text-3xl font-bold text-gray-900 mb-2">View memo</h1>
-        <MemoView
-          memo={memo}
-          onEdit={handleEdit}
-          onDelete={handleDelete}
-          onBack={handleBack}
-        />
+        <DataStateWrapper
+          loading={loading}
+          error={error || (!memo ? 'Memo not found' : null)}
+          loadingClassName="flex justify-center items-center py-8"
+          errorClassName="text-center py-8"
+          errorAction={{
+            label: "Back to list",
+            onClick: () => navigation.goToList(),
+          }}
+        >
+          <h1 className="text-3xl font-bold text-gray-900 mb-2">View memo</h1>
+          {memo && (
+            <MemoView
+              memo={memo}
+              onEdit={handleEdit}
+              onDelete={handleDelete}
+              onBack={handleBack}
+            />
+          )}
+        </DataStateWrapper>
       </div>
     </div>
   );

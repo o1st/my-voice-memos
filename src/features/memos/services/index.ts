@@ -1,0 +1,1 @@
+export { memosService } from './memosService';

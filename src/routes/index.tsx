@@ -1,6 +1,6 @@
 import type { RouteObject } from "react-router-dom";
 import { Layout } from "../components/Layout/Layout";
-import { routes as memosRoutes } from "../features/memos/routes";
+import { routes as memosRoutes } from "../features/memos";
 import { Outlet, Navigate } from "react-router-dom";
 import { lazy, Suspense } from "react";
 import { Loader } from "../components/Loader/Loader";
