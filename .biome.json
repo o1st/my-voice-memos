@@ -6,8 +6,16 @@
 		"useIgnoreFile": true
 	},
 	"files": {
-		"include": ["src/**/*", "*.ts", "*.tsx", "*.js", "*.jsx"],
-		"ignore": ["node_modules/**", "dist/**", "build/**"]
+		"ignore": [
+			"node_modules/**",
+			"dist/**",
+			"build/**",
+			"coverage/**",
+			".next/**",
+			".vite/**",
+			"*.min.js",
+			"*.bundle.js"
+		]
 	},
 	"overrides": [
 		{
