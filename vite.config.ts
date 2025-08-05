@@ -5,7 +5,7 @@ import { defineConfig } from "vite";
 // https://vite.dev/config/
 export default defineConfig({
 	plugins: [react()],
-	base: process.env.NODE_ENV === 'production' ? '/my-voice-memos/' : '/',
+	base: process.env.NODE_ENV === "production" ? "/my-voice-memos/" : "/",
 	resolve: {
 		alias: {
 			"@components": path.resolve(__dirname, "./src/components"),
